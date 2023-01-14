@@ -3,7 +3,7 @@
 > Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'studentDao' defined in com.mvc.tdd.dao.StudentDao defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Invocation of init method failed; nested exception is org.springframework.data.repository.query.QueryCreationException: Could not create query for public abstract com.mvc.tdd.entity.CollegeStudent com.mvc.tdd.dao.StudentDao.findByEmailAddress
 
 ## CAUSE
-💥Entity field included in method name does not match with the entity field defined in corresponding the entity. Which then caused `Invocation of init method failed`. For example, in *Student.java* entity
+💥Entity field included in method name does not match with the entity field defined in the corresponding entity. Which then caused `Invocation of init method failed`. For example, in *Student.java* entity
 ```java
 public class Student {
   // other fields...
