@@ -10,9 +10,9 @@ You have 2 entites `Movie` and `Tag` that mapped to each other as `Many-to-Many`
 ```java
 @Entity
 class Tag {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+   @Id
+   @GeneratedValue(strategy = GenerationType.IDENTITY)
+   private long id;
     
 	 @ManyToMany(fetch = FetchType.EAGER)
 	 @JoinTable(name = "movie_tag", joinColumns = @JoinColumn(name = "tag_id", referencedColumnName = "id"), 
@@ -84,7 +84,7 @@ class Movie {
     })
 	  @JoinTable(name = "movie_tag", joinColumns = @JoinColumn(name = "movie_id", referencedColumnName = "id"), 
         inverseJoinColumns = @JoinColumn(name = "tag_id", referencedColumnName = "id"))
-	 private List<Tag> tags;
+	  private List<Tag> tags;
    
    // other fields, getters, and setters are ommited...
 }
