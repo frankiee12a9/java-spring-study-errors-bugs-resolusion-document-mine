@@ -14,10 +14,10 @@ class Tag {
    @GeneratedValue(strategy = GenerationType.IDENTITY)
    private long id;
     
-	 @ManyToMany(fetch = FetchType.EAGER)
-	 @JoinTable(name = "movie_tag", joinColumns = @JoinColumn(name = "tag_id", referencedColumnName = "id"), 
+   @ManyToMany(fetch = FetchType.EAGER)
+      @JoinTable(name = "movie_tag", joinColumns = @JoinColumn(name = "tag_id", referencedColumnName = "id"), 
         inverseJoinColumns = @JoinColumn(name = "movie_id", referencedColumnName = "id"))
-	 private List<Movie> movies;
+    private List<Movie> movies;
    
    // other fields, getters, and setters are ommited...
 }
@@ -30,15 +30,16 @@ class Movie {
     private long id;
     
     @ManyToMany(fetch = FetchType.LAZY)
-	  @JoinTable(name = "movie_tag", joinColumns = @JoinColumn(name = "movie_id", referencedColumnName = "id"), 
+      @JoinTable(name = "movie_tag", joinColumns = @JoinColumn(name = "movie_id", referencedColumnName = "id"), 
         inverseJoinColumns = @JoinColumn(name = "tag_id", referencedColumnName = "id"))
-	 private List<Tag> tags;
+     private List<Tag> tags;
    
-   // other fields, getters, and setters are ommited...
+     // other fields, getters, and setters are ommited...
 }
 ```
 
 The business logic requires that whenever you create a `Movie` new `Tag` is inserted and created also. For example
+
 `MovieServiceImpl.java`
 ```java
     @Override
@@ -47,15 +48,15 @@ The business logic requires that whenever you create a `Movie` new `Tag` is inse
         List<Tag> tags = new ArrayList<>(tagNames.size());
         for (String name : tagNames) {
             Tag tag = tagRepository.findByName(name).orElse(null);
-			      tag = tag == null ? new Tag(name) : tag;
+            tag = tag == null ? new Tag(name) : tag;
             tags.add(tag);
         }
     
         Movie movie = new Movie();
         // setters are ommited...
-        movie.setTags(tags); // tags here, is the referenced entit
+        movie.setTags(tags); // (1) tags here, which are the referenced entity
         
-        Movie savedMovie = movieRepository.save(movie); // here, you try to persit parent object with referenced object 
+        Movie savedMovie = movieRepository.save(movie); // (2) you try to persit parent object with referenced object 
         // setters are ommited...
         
         return createMovieResponse;
