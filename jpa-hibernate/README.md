@@ -1,19 +1,7 @@
 # JPA and Hibernates relevant errors and resolutions
 
-1. [org.hibernate.TransientObjectException: Object references an unsaved transient instance save the transient instance before flushing](#org.hibernate.TransientObjectException:-object-references-an-unsaved-transient-instance-save-the-transient-instance-before-flushing)
-2. [](#)
-
-## test1
-
->
-
-## test2
-
->
-
-# test3
-
->
+1. [org.hibernate.TransientObjectException: Object references an unsaved transient instance save the transient instance before flushing](#org-hibernate-TransientObjectException:-object-references-an-unsaved-transient-instance-save-the-transient-instance-before-flushing)
+2. [this is jus a test anchor link](#this-is-jus-a-test-anchor-link)
 
 ## org.hibernate.TransientObjectException: Object references an unsaved transient instance save the transient instance before flushing
 
@@ -150,7 +138,9 @@ In line `104` we need to persist object in database first, so need to make the c
 
 `tag = tag == null ? new Tag(name) : tag;` to `tag = tag == null ? tagRepository.save(new Tag(name)) : tag;`
 
-References:
+## this is jus a test anchor link
+
+> > References:
 
 1. https://thorben-janssen.com/entity-lifecycle-model/
 2. https://stackoverflow.com/questions/2302802/how-to-fix-the-hibernate-object-references-an-unsaved-transient-instance-save?page=1&tab=scoredesc#tab-top
