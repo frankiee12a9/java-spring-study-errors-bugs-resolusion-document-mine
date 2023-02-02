@@ -17,7 +17,7 @@
     - [Endpoint with @PathVariable](#Endpoint-with-@PathVariable)
     - [Endpoint with @RequestBody](#Endpoint-with-@RequestBody)
 3. [How to mock authentication](#How-to-mock-authentication)
-4. [Mocking secured API controller endpoint using @WithMockUser](#Mocking-secured-API-controller-endpoint-using-@WithMockUser)
+4. [Mocking secured API controller endpoint using @WithMockUser](#Mocking-secured-API-controller-endpoint-using-WithMockUser)
 5. [Mocking @AuthenticationPrincipal with `CustomUserDetails` object](#Mocking-`@AuthenticationPrincipal`-with-`CustomUserDetails`-object)
 
 ---
@@ -76,7 +76,7 @@
 > TODO 
 
 
-## Mocking secured API controller endpoint using @WithMockUser
+## Mocking secured API controller endpoint using WithMockUser
 > TODO
 
 ## Mocking @AuthenticationPrincipal with `CustomUserDetails` object
