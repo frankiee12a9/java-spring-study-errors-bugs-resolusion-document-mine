@@ -19,7 +19,7 @@
 ## BeanCreationException
 > Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'studentDao' defined in com.mvc.tdd.dao.StudentDao defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Invocation of init method failed; nested exception is org.springframework.data.repository.query.QueryCreationException: Could not create query for public abstract com.mvc.tdd.entity.CollegeStudent com.mvc.tdd.dao.StudentDao.findByEmailAddress
 
-## CAUSE
+### POSSIBLY CAUSE
 💥Entity field included in method name does not match with the entity field defined in the corresponding entity. Which then caused `Invocation of init method failed`. For example, in *Student.java* entity
 ```java
 public class Student {
@@ -37,13 +37,13 @@ public interface StudentDao extends CrudRepository<CollegeStudent, Integer> {
 }
 ```
 
-## RESOLVE
+### RESOLVE
 👉 change method name "findByEmailAddress" in *StudentDao.java* to "findByEmail", so that Jpa can recognize the field name in such entity.
 
-## 2. ERROR
+## NoSuchBeanDefinitionException
 > Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException
 
-## CAUSE
+### POSSIBLY CAUSE
  💥 try injecting a bean that doesn't exist in current context.
  For example, StudentGrade is trying to inject GradeDao:
  ```java
@@ -65,5 +65,5 @@ No qualifying bean of type [com.mvc.tdd.dao.GradeDao] found for dependency:
 expected at least 1 bean which qualifies as autowire candidate for this dependency. 
 Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
 
-## RESOLVE
+### RESOLVE
 👉 Use `@Configuration` class via the `@Bean` annotation or is annotated with `@Component`, `@Repository`, `@Service`, `@Controller`, and classpath scanning is active for that package
