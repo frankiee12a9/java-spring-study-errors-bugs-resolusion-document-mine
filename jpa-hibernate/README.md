@@ -1,7 +1,14 @@
 # JPA and Hibernates relevant errors and resolutions
 
+1. [Mocking with controller API endpoints](#)
+    - [Create endpoint](#CREATE-endpoint)
+    - [Read endpoint](#Read-endpoint)
+    - [Update endpoint](#Create-endpoint)
+    - [Delete endpoint](#Create-endpoint)
 1. [org.hibernate.TransientObjectException: Object references an unsaved transient instance save the transient instance before flushing](#org-hibernate-TransientObjectException:-object-references-an-unsaved-transient-instance-save-the-transient-instance-before-flushing)
-2. [this is jus a test anchor link](#this-is-jus-a-test-anchor-link)
+1. [Hibernate: a collection with cascade=”all-delete-orphan” was no longer referenced by the owning entity instance hibernate]
+   (#Hibernate-a-collection-with-cascade=”all-delete-orphan”-was-no longer-referenced-by-the-owning-entity-instance-hibernate)
+1. [this is jus a test anchor link](#this-is-jus-a-test-anchor-link)
 
 ## org.hibernate.TransientObjectException: Object references an unsaved transient instance save the transient instance before flushing
 
@@ -137,6 +144,10 @@ NOTE:
 In line `104` we need to persist object in database first, so need to make the change in
 
 `tag = tag == null ? new Tag(name) : tag;` to `tag = tag == null ? tagRepository.save(new Tag(name)) : tag;`
+
+## Collection with cascade=”all-delete-orphan” was no longer referenced by the owning entity instance-hibernate
+
+>
 
 ## this is jus a test anchor link
 
