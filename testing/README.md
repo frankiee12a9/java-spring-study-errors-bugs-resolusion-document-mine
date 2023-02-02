@@ -55,3 +55,10 @@
 >
 
 ###
+
+### References
+
+1. https://eliux.github.io/java/spring/testing/how-to-mock-authentication-in-spring/
+2. https://stackabuse.com/guide-to-unit-testing-spring-boot-rest-apis/
+3. https://stackabuse.com/how-to-test-a-spring-boot-application/
+4. https://babarowski.com/blog/mock-authentication-with-custom-userdetails/
