@@ -1,10 +1,10 @@
 # Bean and creating bean relevant errors and along with corresponding resolutions.
 
 1. [BeanCreationException](#BeanCreationException)
-2. [NoSuchBeanDefinitionException](#2.NoSuchBeanDefinitionException)
+2. [NoSuchBeanDefinitionException](#NoSuchBeanDefinitionException)
 
 
-## 1. BeanCreationException
+## BeanCreationException
 > Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'studentDao' defined in com.mvc.tdd.dao.StudentDao defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Invocation of init method failed; nested exception is org.springframework.data.repository.query.QueryCreationException: Could not create query for public abstract com.mvc.tdd.entity.CollegeStudent com.mvc.tdd.dao.StudentDao.findByEmailAddress
 
 ### POSSIBLY CAUSE 💥
@@ -29,7 +29,7 @@ public interface StudentDao extends CrudRepository<CollegeStudent, Integer> {
 ### RESOLVE
 👉 change method name "findByEmailAddress" in *StudentDao.java* to "findByEmail", so that Jpa can recognize the field name in such entity.
 
-## 2. NoSuchBeanDefinitionException
+## NoSuchBeanDefinitionException
 > Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException
 
 ### POSSIBLY CAUSE 💥
