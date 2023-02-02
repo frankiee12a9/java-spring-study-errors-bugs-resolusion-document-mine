@@ -1,7 +1,7 @@
 # Bean and creating bean relevant errors and along with corresponding resolutions.
 
 1. [BeanCreationException](#BeanCreationException)
-2. [NoSuchBeanDefinitionException](#NoSuchBeanDefinitionException)
+2. [NoSuchBeanDefinitionException](#2.NoSuchBeanDefinitionException)
 
 
 ## 1. BeanCreationException
