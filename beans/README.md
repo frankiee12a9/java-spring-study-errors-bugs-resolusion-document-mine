@@ -1,26 +1,15 @@
-# BEAN AND CREATING BREANS RELATED ERRORS AND RESOLUTIONS
+# Bean and creating bean relevant errors and along with corresponding resolutions.
 
-1. [BeanCreationException](#BeanCreationException)
+1. [BeanCreationException](#Bean_Creation_Exception)
 2. [NoSuchBeanDefinitionException](#NoSuchBeanDefinitionException)
 
-## Test1
->
 
-## Test2
->
-
-## Test3
->
-
-## Test4
->
-
-
-## BeanCreationException
+## 1. BeanCreationException
 > Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'studentDao' defined in com.mvc.tdd.dao.StudentDao defined in @EnableJpaRepositories declared on JpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Invocation of init method failed; nested exception is org.springframework.data.repository.query.QueryCreationException: Could not create query for public abstract com.mvc.tdd.entity.CollegeStudent com.mvc.tdd.dao.StudentDao.findByEmailAddress
 
-### POSSIBLY CAUSE
-💥Entity field included in method name does not match with the entity field defined in the corresponding entity. Which then caused `Invocation of init method failed`. For example, in *Student.java* entity
+### POSSIBLY CAUSE 💥
+Entity field included in method name does not match with the entity field defined in the corresponding entity. Which then caused `Invocation of init method failed`. For example.
+In *Student.java* entity
 ```java
 public class Student {
   // other fields...
@@ -40,11 +29,11 @@ public interface StudentDao extends CrudRepository<CollegeStudent, Integer> {
 ### RESOLVE
 👉 change method name "findByEmailAddress" in *StudentDao.java* to "findByEmail", so that Jpa can recognize the field name in such entity.
 
-## NoSuchBeanDefinitionException
+## 2. NoSuchBeanDefinitionException
 > Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException
 
-### POSSIBLY CAUSE
- 💥 try injecting a bean that doesn't exist in current context.
+### POSSIBLY CAUSE 💥
+Try injecting a bean that doesn't exist in current context.
  For example, StudentGrade is trying to inject GradeDao:
  ```java
  @Component
