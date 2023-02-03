@@ -8,7 +8,7 @@
     - [Endpoint with @RequestParam](#Endpoint-with-@RequestParam)
     - [Endpoint with @PathVariable](#Endpoint-with-@PathVariable)
     - [Endpoint with @RequestBody](#Endpoint-with-@RequestBody)
-2. [Mocking with @Controller endpoints](#)
+2. [Mocking with @Controller endpoints](#Mocking-with-@Controller-endpoints)
     - [Create endpoint](#Create-endpoint)
     - [Read endpoint](#Read-endpoint)
     - [Update endpoint](#Update-endpoint)
