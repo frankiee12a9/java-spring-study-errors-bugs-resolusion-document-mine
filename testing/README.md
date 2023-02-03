@@ -1,14 +1,14 @@
 # Spring/Spring Boot Unit Testing, API endpoint, View template Mocking  
 
-1. [Mocking with @RestController API endpoints](#Mocking-with-@RestController-API-endpoints)
+1. [Mocking with `RestController` API endpoints](#Mocking-with-RestController-API-endpoints)
     - [Create endpoint](#Create-endpoint)
     - [Read endpoint](#Read-endpoint)
     - [Update endpoint](#Update-endpoint)
     - [Delete endpoint](#Delete-endpoint)
-    - [Endpoint with @RequestParam](#Endpoint-with-@RequestParam)
-    - [Endpoint with @PathVariable](#Endpoint-with-@PathVariable)
-    - [Endpoint with @RequestBody](#Endpoint-with-@RequestBody)
-2. [Mocking with @Controller endpoints](#Mocking-with-@Controller-endpoints)
+    - [Endpoint with `RequestParam`](#Endpoint-with-RequestParam)
+    - [Endpoint with `PathVariable`](#Endpoint-with-PathVariable)
+    - [Endpoint with `RequestBody`](#Endpoint-with-RequestBody)
+2. [Mocking with `Controller` endpoints](#Mocking-with-Controller-endpoints)
     - [Create endpoint](#Create-endpoint)
     - [Read endpoint](#Read-endpoint)
     - [Update endpoint](#Update-endpoint)
@@ -22,7 +22,7 @@
 
 ---
 
-## Mocking with @RestController API endpoints
+## Mocking with `RestController` API endpoints
 > TODO
 
 ### Create endpoint
@@ -40,20 +40,16 @@
 
 ###
 
-### Endpoint with @RequestParam
+### Endpoint with `RequestParam`
 > TODO
 
-### Endpoint with @PathVariable
+### Endpoint with `PathVariable`
 > TODO
 
-### Endpoint with @RequestBody
+### Endpoint with `RequestBody`
 > TODO
 
-## Mocking with @Controller endpoints
-> TODO
-
-###
-
+## Mocking with `Controller` endpoints
 > TODO
 
 ###
@@ -64,7 +60,11 @@
 
 > TODO
 
-## Mocking secured API controller endpoint using WithMockUser
+###
+
+> TODO
+
+## Mocking secured API controller endpoint using `WithMockUser`
 
 > TODO
 
@@ -78,7 +78,7 @@
 ## How to mock secured API controller endpoint in Spring
 > TODO 
 
-## Mocking @AuthenticationPrincipal with custom UserDetails object
+## Mocking `AuthenticationPrincipal` with custom `CustomUserDetails` object
 > TODO
 
 ### References
