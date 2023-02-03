@@ -1,4 +1,4 @@
-# Spring/Spring Boot Unit Testing, Mocking and related errors along with corresponding resolutions.
+# Spring/Spring Boot Unit Testing, API endpoint, View template Mocking  
 
 1. [Mocking with @RestController API endpoints](#Mocking-with-@RestController-API-endpoints)
     - [Create endpoint](#Create-endpoint)
@@ -23,54 +23,43 @@
 ---
 
 ## How to mock authentication in Spring
-
->
+> TODO 
 
 ## How to mock secured API controller endpoint in Spring
-
->
+> TODO 
 
 ## Mocking @AuthenticationPrincipal with custom UserDetails object
-
->
+> TODO
 
 ## Mocking with @RestController API endpoints
-
->
+> TODO
 
 ### Create endpoint
-
-> about read endpoint
+> TODO
 
 ### Read endpoint
-
-> about read endpoint
+> TODO 
 
 ### Update endpoint
-
+> TODO 
 > about read endpoint
 
 ### Delete endpoint
-
->
+> TODO
 
 ###
 
 ### Endpoint with @RequestParam
-
->
+> TODO
 
 ### Endpoint with @PathVariable
-
->
+> TODO
 
 ### Endpoint with @RequestBody
-
->
+> TODO
 
 ## Mocking with @Controller endpoints
-
->
+> TODO
 
 ###
 
