@@ -22,15 +22,6 @@
 
 ---
 
-## How to mock authentication in Spring
-> TODO 
-
-## How to mock secured API controller endpoint in Spring
-> TODO 
-
-## Mocking @AuthenticationPrincipal with custom UserDetails object
-> TODO
-
 ## Mocking with @RestController API endpoints
 > TODO
 
@@ -79,6 +70,15 @@
 
 ## Mocking @AuthenticationPrincipal with `CustomUserDetails` object
 
+> TODO
+
+## How to mock authentication in Spring
+> TODO 
+
+## How to mock secured API controller endpoint in Spring
+> TODO 
+
+## Mocking @AuthenticationPrincipal with custom UserDetails object
 > TODO
 
 ### References
