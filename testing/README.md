@@ -48,9 +48,11 @@ For standard development, you might need the following specifications:
     - [Endpoint with @PathVariable](#Endpoint-with-@PathVariable)
     - [Endpoint with @RequestBody](#Endpoint-with-@RequestBody)
 3. [How to mock authentication](#How-to-mock-authentication)
-4. [Mocking secured API controller endpoint using @WithMockUser](#Mocking-secured-API-controller-endpoint-using-WithMockUser)
-5. [Mocking @AuthenticationPrincipal with `CustomUserDetails` object](#Mocking-`@AuthenticationPrincipal`-with-`CustomUserDetails`-object)
-
+4. [Mocking secured API controller endpoint using `@WithMockUser`](#Mocking-secured-API-controller-endpoint-using-WithMockUser)
+5. [Mocking `@AuthenticationPrincipal` with `CustomUserDetails` object](#Mocking-`@AuthenticationPrincipal`-with-`CustomUserDetails`-object)
+6. [Database integration testing](#Database-integration-testing)
+    -  [Setup](#Setup) 
+    -  [Cleanup](#Cleanup)
 ---
 
 
@@ -246,6 +248,42 @@ void getTodosWithGivenTextHttpRequest_shouldPass() throws Exception {
 ## Mocking `AuthenticationPrincipal` with custom `CustomUserDetails` object
 ```java
 
+```
+## [Database integration testing](#Database-integration-testing)
+* When we are perform integration testing with database
+    * each test should run from known state
+* Before each test, perform initialization (`setup`)
+    * insert sample data 
+* After each test, perform `cleanup`
+    * delete the sample data
+
+### [Setup](#Setup)
+```java
+@Autowired
+private JdbcTemplate jdbc;  
+
+@BeforeEach
+void setupDbBeforeTransactions() throws Exception {
+     jdbc.execute("INSERT INTO todos (id, name, description) VALUES (11, 'do that', 'lorem ipsum dolor sit amet')");
+}   
+
+// tests...
+
+// cleanup...
+```
+### [Cleanup](#Cleanup)
+```java
+@Autowired
+private JdbcTemplate jdbc;  
+
+// setup...
+
+// tests...
+
+@AfterEach
+    void cleanupDbAfterTransactions() throws Exception {
+        jdbc.execute("DELETE FROM todos");
+}
 ```
 
 ### References
