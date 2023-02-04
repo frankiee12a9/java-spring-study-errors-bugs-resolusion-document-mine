@@ -111,7 +111,7 @@ void createTodoHttpRequest_shouldPass() throws Exception {
      createRequest.setName(name);
      createRequest.setDescription(description);
      
-	 // make entity's instance being persited and managed
+     // make entity's instance being persited and managed
      entityManager.persist(createRequest);
      entityManager.flush();
 
@@ -124,7 +124,6 @@ void createTodoHttpRequest_shouldPass() throws Exception {
              .andExpect(jsonPath("$.description", is(createRequest.getDescription())))
              .andDo(print());
     }
-
 ```
 ### Read endpoint
 ```java
@@ -135,7 +134,7 @@ void getTodoByIdHttpRequest_shouldPass() throws Exception {
      mockMvc.perform(MockMvcRequestBuilders.get("/api/todo/{id}", id))
              .andExpect(status().isOk())
              .andExpect(jsonPath("$.id", is(id)))
-			 .andExpect(jsonPath("$.name", is("whatever you defined for todo with id is 1"))) 
+	     .andExpect(jsonPath("$.name", is("whatever you defined for todo with id is 1"))) 
              .andExpect(jsonPath("$.description", is("whatever you defined for todo with id is 1")))
              .andDo(print());
     }
@@ -156,7 +155,7 @@ void updateTodoByIdHttpRequest_shouldPass() throws Exception {
                  .content(objectMapper.writeValueAsString(updateRequest)))
              .andExpect(status().isOk())
              .andExpect(content().contentType(APPLICATION_JSON_UTF8))
-             .andExpect(jsonPath("$.title", is(updateRequest.getName()))) 
+             .andExpect(jsonPath("$.name", is(updateRequest.getName()))) 
              .andExpect(jsonPath("$.description", is(updateRequest.getDescription())))
              .andDo(print());
     }
@@ -182,14 +181,14 @@ Assume you want to attach a `@RequestParam` annotation to get the resources that
 @GetMapping("{id}")
 public ResponseEntity<Todo> getTodos(@RequestParam(value = "text", required = false) String text) {
      Todo response = text == null ? todoService.getTodos() : todoService.getTodosWithGivenText(text);
-	 // business logic
+     // business logic
 }
 ```
 For testing this, just attach `param(...)` with parameter and its value defined in the controller endpoint
 ```java
 @Test
 void getTodosWithGivenTextHttpRequest_shouldPass() throws Exception {
-	String param = "text";
+    String param = "text";
     String paramValue = "givenParam";
 		
     mockMvc.perform(MockMvcRequestBuilders.get("/api/todos")
