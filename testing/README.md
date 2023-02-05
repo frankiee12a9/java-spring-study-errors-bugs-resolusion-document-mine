@@ -152,7 +152,7 @@ void createTodoHttpRequest_shouldPass() throws Exception {
     }
 ```
 
-The code mostly speak for itself what it does. As the `POST` request, first we need a `requestBody` (name, description),
+The code mostly speaks for itself what it does. As the `POST` request, first we need a `RequestBody` (e.g. name, description),
 then we need `EntityManager` to make it persisted and managed in the DB.
 
 `MockMvc.perform()` accepts a `MockMvcRequest` and mocks the API call given the fields of the object. Here, we built a request via the `MockMvcRequestBuilders`, as the request is `POST` and it does accept the `RequestBody` with `contentType` as `APPLICATION_JSON`,
@@ -250,28 +250,7 @@ void getTodosWithGivenTextHttpRequest_shouldPass() throws Exception {
 [refer to `Create Endpoint`or`Update Endpoint`](#create-endpoint)
 
 ### Mocking with `Controller` endpoints
-
-```java
-
-```
-
-###
-
-```java
-
-```
-
-###
-
-```java
-
-```
-
-###
-
-```java
-
-```
+> TODO
 
 ## Mocking secured API controller endpoint using `WithMockUser`
 
@@ -301,10 +280,10 @@ who has username as `username_value` and roles as `user_role`.
 
 ## Mocking @AuthenticationPrincipal with `CustomUserDetails` object
 
-In case you need to access current logged in user http context to get `username`, `email` or `address` to perform some business logic in particular controller endpoint. For example, through using `@AuthenticationPrincipal`
+In case you need to access current logged in user http context to get user's information (e.g. `username`, `email` or `address`) to perform some business logic in particular controller endpoint. For example, through using `@AuthenticationPrincipal`
 
 ```java
- @PutMapping("{id}")
+@PutMapping("{id}")
 public ResponseEntity<Todo> updateTodo(@PathVariable Long id, @Valid @RequestBody Todo updateRequest,
     @AuthenticationPrincipal YourCustomUserDetails currentUser) {
     // business logic
@@ -405,16 +384,22 @@ In summary, we want to move from a potentially complex, slow, and flaky integrat
 | 5   | Exception Handling     | If an exception occurs somewhere on the way, the controller should translate it into a meaningful error message and HTTP status for the user.Row 2 Column 3                                       |
 
 ### [Verifying HTTP Request Matching](#Verifying-HTTP-Request-Matching)
+> TODO
 
 ### [Verifying Input Se/Deserialization](#Verifying-Input-Se/Deserialization)
+> TODO 
 
 ### [Verifying Input Validation](#Verifying-Input-Validation)
+> TODO 
 
 ### [Verifying Business Logic](#Verifying-Business-Logic)
+> TODO
 
 ### [Verifying Output Serialization](#Verifying-Output-Serialization)
+> TODO
 
 ### [Verifying Exception Handling](#Verifying-Exception-Handling)
+> TODO
 
 ## [Unit or Integration Test?](#Unit-or-Integration-Test?)
 
