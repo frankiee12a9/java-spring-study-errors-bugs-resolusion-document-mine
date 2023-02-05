@@ -60,6 +60,16 @@ For standard development, you might need the following specifications:
 6. [Database integration testing](#Database-integration-testing)
     - [Setup](#Setup)
     - [Cleanup](#Cleanup)
+7. [Why Mocking?](#Why-Mocking?)
+8. [Responsibilities of a Web Controller](#Responsibilities-of-a-web-controller)
+    - [Verifying HTTP Request Matching](#Verifying-HTTP-Request-Matching)
+    - [Verifying Input Se/Deserialization](#Verifying-Input-Se/Deserialization)
+    - [Verifying Input Validation](#Verifying-Input-Validation)
+    - [Verifying Business Logic](#Verifying-Business-Logic)
+    - [Verifying Output Serialization](#Verifying-Output-Serialization)
+    - [Verifying Exception Handling](#Verifying-Exception-Handling)
+9. [Unit or Integration Test?](#Unit-or-Integration-Test?)
+10. [Why Web Controllers should Integration-Test?](#Why-Web-Controllers-should-Integration-Test)
 
 ---
 
@@ -370,9 +380,62 @@ private JdbcTemplate jdbc;
 }
 ```
 
+## [Why Mocking?](#Why-Mocking?)
+
+Why should we use a mock instead of a real service object in a test?
+
+Imagine the service implementation above has a dependency to a database or some other third-party system. We don’t want to have our test run against the database. _If the database isn’t available, the test will fail even though our system under test might be completely bug-free_. The more dependencies we add in a test, the more reasons a test has to fail. And most of those reasons will be the wrong ones. If we use a mock instead, we can mock all those potential failures away.
+
+Aside from reducing failures, mocking also reduces our tests' complexity and thus saves us some effort. It takes a lot of boilerplate code to set up a whole network of correctly-initialized objects to be used in a test. Using mocks, we only have to “instantiate” one mock instead of a whole rat-tail of objects the real object might need to be instantiated.
+
+<!--
+So, in a test of our SendMoneyController above, instead of a real instance of SendMoneyUseCase, we want to use a mock with the same interface whose behavior we can control as needed in the test. -->
+
+In summary, we want to move from a potentially complex, slow, and flaky integration test towards a simple, fast, and reliable unit test.
+
+## [Responsibilities of a Web Controller](#Responsibilities-of-a-web-controller)
+
+| #   | Responsibility         | Description                                                                                                                                                                                       |
+| --- | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 0   | Perform HTTP Requests  | The controller should respond to certain URLs, HTTP methods and content types.                                                                                                                    |
+| 2   | Deserialize Input      | The controller should parse the incoming HTTP request and create Java objects from variables in the URL, HTTP request parameters and the request body so that we can work with them in the code.3 |
+| 3   | Validate Input         | The controller is the first line of defense against bad input, so it’s a place where we can validate the input.Row 2 Column 3                                                                     |
+| 4   | Perform Business Logic | Having parsed the input, the controller must transform the input into the model expected by the business logic and pass it on to the business logic.Row 2 Column 3                                |
+| 5   | Serialize Output       | The controller takes the output of the business logic and serializes it into an HTTP response.Row 2 Column 3                                                                                      |
+| 5   | Exception Handling     | If an exception occurs somewhere on the way, the controller should translate it into a meaningful error message and HTTP status for the user.Row 2 Column 3                                       |
+
+### [Verifying HTTP Request Matching](#Verifying-HTTP-Request-Matching)
+
+### [Verifying Input Se/Deserialization](#Verifying-Input-Se/Deserialization)
+
+### [Verifying Input Validation](#Verifying-Input-Validation)
+
+### [Verifying Business Logic](#Verifying-Business-Logic)
+
+### [Verifying Output Serialization](#Verifying-Output-Serialization)
+
+### [Verifying Exception Handling](#Verifying-Exception-Handling)
+
+## [Unit or Integration Test?](#Unit-or-Integration-Test?)
+
+| #   | Responsibility         | Covered in Unit-Test?                                                                                                                                                                                    |
+| --- | ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 0   | Perform HTTP Requests  | [x] No, because the unit test would not evaluate the @PostMapping annotation and similar annotations specifying the properties of a HTTP request.                                                        |
+| 1   | Deserialize Input      | [x] No, because annotations like @RequestParam and @PathVariable would not be evaluated. Instead we would provide the input as Java objects, effectively skipping deserialization from an HTTP request.3 |
+| 2   | Validate Input         | [x] Not when depending on bean validation, because the @Valid annotation would not be evaluated.Row 2 Column 3                                                                                           |
+| 3   | Perform Business Logic | [v] Yes, because we can verify if the mocked business logic has been called with the expected arguments.Row 2 Column 3                                                                                   |
+| 4   | Serialize Output       | [x] No, because we can only verify the Java version of the output, and not the HTTP response that would be generated.Row 2 Column 3                                                                      |
+| 5   | Exception Handling     | [x] No. We could check if a certain exception was raised, but not that it was translated to a certain JSON response or HTTP status code.3                                                                |
+
+## [Why Web Controllers should Integration-Test?](#Why-Web-Controllers-should-Integration-Test)
+
+Testing a Spring Web Controller with a unit test like this only covers a fraction of the potential errors that can happen in production. The unit test above verifies that a certain response code is returned, but it does not integrate with Spring to check if the input parameters are parsed correctly from an HTTP request, or if the controller listens to the correct path, or if exceptions are transformed into the expected HTTP response, and so on.
+
 ### References
 
 1. https://eliux.github.io/java/spring/testing/how-to-mock-authentication-in-spring/
 2. https://stackabuse.com/guide-to-unit-testing-spring-boot-rest-apis/
 3. https://stackabuse.com/how-to-test-a-spring-boot-application/
 4. https://babarowski.com/blog/mock-authentication-with-custom-userdetails/
+5. https://reflectoring.io/spring-boot-mock/ (mocking sample)
+6. https://reflectoring.io/spring-boot-web-controller-test/ (table)
