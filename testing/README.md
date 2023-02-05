@@ -1,18 +1,23 @@
-# Spring/Spring Boot Unit Testing, API endpoint, View template Mocking  
---------
+# Spring/Spring Boot Unit Testing, API endpoint, View template Mocking
+
+---
+
 ## Requirements
+
 For standard development, you might need the following specifications:
 
-* `Spring Boot v2.0+`
-* `JDK v1.8+`
-* `JUnit 4+` - The most popular and widely used testing framework for Java.
-* `Mockito` - General-purpose framework for mocking and stubbing services and objects.
-* `MockMVC` - Spring's module for performing integration testing during unit testing.
-* `Lombok` - Convenience library for reducing boilerplate code.
-* Any IDE that supports Java and Spring Boot (IntelliJ, VSCode, etc...)
+-   `Spring Boot v2.0+`
+-   `JDK v1.8+`
+-   `JUnit 4+` - The most popular and widely used testing framework for Java.
+-   `Mockito` - General-purpose framework for mocking and stubbing services and objects.
+-   `MockMVC` - Spring's module for performing integration testing during unit testing.
+-   `Lombok` - Convenience library for reducing boilerplate code.
+-   Any IDE that supports Java and Spring Boot (IntelliJ, VSCode, etc...)
 
 ### Sample Setup needs
+
 `pom.xml` Dependencies
+
 ```
 <dependency>
    <groupId>org.springframework.boot</groupId>
@@ -22,15 +27,17 @@ For standard development, you might need the following specifications:
 <dependency>
     <groupId>junit</groupId>
     <artifactId>junit</artifactId>
-    <version>4.13.2</version> 
+    <version>4.13.2</version>
 </dependency>
 ```
-* `spring-boot-starter-test` Starter for testing Spring Boot applications with libraries including JUnit Jupiter, Hamcrest and Mockito.
-* `junit` JUnit is a unit testing framework to write and run repeatable automated tests on Java. (Optional)
 
+-   `spring-boot-starter-test` Starter for testing Spring Boot applications with libraries including JUnit Jupiter, Hamcrest and Mockito.
+-   `junit` JUnit is a unit testing framework to write and run repeatable automated tests on Java. (Optional)
 
--------
+---
+
 ## Contents
+
 1. [Mocking with `RestController` API endpoints](#Mocking-with-RestController-API-endpoints)
     - [Create endpoint](#Create-endpoint)
     - [Read endpoint](#Read-endpoint)
@@ -51,15 +58,17 @@ For standard development, you might need the following specifications:
 4. [Mocking secured API controller endpoint using `@WithMockUser`](#Mocking-secured-API-controller-endpoint-using-WithMockUser)
 5. [Mocking `@AuthenticationPrincipal` with `CustomUserDetails` object](#Mocking-`@AuthenticationPrincipal`-with-`CustomUserDetails`-object)
 6. [Database integration testing](#Database-integration-testing)
-    -  [Setup](#Setup) 
-    -  [Cleanup](#Cleanup)
----
+    - [Setup](#Setup)
+    - [Cleanup](#Cleanup)
 
+---
 
 ## Mocking with `RestController` API endpoints
 
-POJO entity `Todo.java` class
-```java 
+For the sake of brevity, just one POJO entity is used for the example.
+`Todo.java` class
+
+```java
 @Data
 @Entity
 public class Todo {
@@ -72,6 +81,7 @@ public class Todo {
 ```
 
 And it's rest controller `TodoController.java` class
+
 ```java
 @RestController
 @RequestMapping("/todos")
@@ -83,7 +93,7 @@ public class TodoController {
     @PostMapping
     public ResponseEntity<Todo> createTodo(@Valid @RequestBody Todo createRequest) {
         // business logic
-    } 
+    }
 
     @GetMapping("{id}")
     public ResponseEntity<Todo> getTodo(@PathVariable Long id) {
@@ -103,7 +113,11 @@ public class TodoController {
 ```
 
 ### Create endpoint
+
 ```java
+@PersistenceContext
+private EntityManager entityManager
+
 @Test
 void createTodoHttpRequest_shouldPass() throws Exception {
      String name = "test title";
@@ -112,8 +126,8 @@ void createTodoHttpRequest_shouldPass() throws Exception {
      Todo createRequest = new Todo();
      createRequest.setName(name);
      createRequest.setDescription(description);
-     
-     // make entity's instance being persited and managed
+
+     // make entity's instance being persisted and managed
      entityManager.persist(createRequest);
      entityManager.flush();
 
@@ -122,12 +136,23 @@ void createTodoHttpRequest_shouldPass() throws Exception {
                  .content(objectMapper.writeValueAsString(createRequest)))
              .andExpect(status().isCreated())
              .andExpect(content().contentType(APPLICATION_JSON_UTF8))
-             .andExpect(jsonPath("$.title", is(createRequest.getName()))) 
+             .andExpect(jsonPath("$.name", is(createRequest.getName())))
              .andExpect(jsonPath("$.description", is(createRequest.getDescription())))
              .andDo(print());
     }
 ```
+
+The code mostly speak for itself what it does. As the `POST` request, first we need a `requestBody` (name, description),
+then we need `EntityManager` to make it persisted and managed in the DB.
+
+`MockMvc.perform()` accepts a `MockMvcRequest` and mocks the API call given the fields of the object. Here, we built a request via the `MockMvcRequestBuilders`, as the request is `POST` and it does accept the `RequestBody` with `contentType` as `APPLICATION_JSON`,
+and the `content` should be mapped and set as a UTF-8 String.
+
+After `perform()` is ran, `andExpect()` methods are subsequently chained to it and tests against the results returned by the method.
+Depends on the request, the content(`resource`, `status code`) is expected returning based on business logic.
+
 ### Read endpoint
+
 ```java
 @Test
 void getTodoByIdHttpRequest_shouldPass() throws Exception {
@@ -136,18 +161,19 @@ void getTodoByIdHttpRequest_shouldPass() throws Exception {
      mockMvc.perform(MockMvcRequestBuilders.get("/api/todo/{id}", id))
              .andExpect(status().isOk())
              .andExpect(jsonPath("$.id", is(id)))
-	     .andExpect(jsonPath("$.name", is("whatever you defined for todo with id is 1"))) 
+	     .andExpect(jsonPath("$.name", is("whatever you defined for todo with id is 1")))
              .andExpect(jsonPath("$.description", is("whatever you defined for todo with id is 1")))
              .andDo(print());
     }
 ```
 
 ### Update endpoint
+
 ```java
 @Test
 void updateTodoByIdHttpRequest_shouldPass() throws Exception {
      Long id = 1L;
-	 
+
      Todo updateRequest = new Todo();
      updateRequest.setName("do this");
      updateRequest.setDescription("Lorem ipsum dolor sit amet, consectetur adipiscing elit");
@@ -157,13 +183,14 @@ void updateTodoByIdHttpRequest_shouldPass() throws Exception {
                  .content(objectMapper.writeValueAsString(updateRequest)))
              .andExpect(status().isOk())
              .andExpect(content().contentType(APPLICATION_JSON_UTF8))
-             .andExpect(jsonPath("$.name", is(updateRequest.getName()))) 
+             .andExpect(jsonPath("$.name", is(updateRequest.getName())))
              .andExpect(jsonPath("$.description", is(updateRequest.getDescription())))
              .andDo(print());
     }
 ```
 
 ### Delete endpoint
+
 ```java
 @Test
 void deleteTodoByIdHttpRequest_shouldPass() throws Exception {
@@ -178,7 +205,9 @@ void deleteTodoByIdHttpRequest_shouldPass() throws Exception {
 ```
 
 ### Endpoint with `RequestParam`
+
 Assume you want to attach a `@RequestParam` annotation to get the resources that contain given parameter, For example
+
 ```java
 @GetMapping("{id}")
 public ResponseEntity<Todo> getTodos(@RequestParam(value = "text", required = false) String text) {
@@ -186,13 +215,15 @@ public ResponseEntity<Todo> getTodos(@RequestParam(value = "text", required = fa
      // business logic
 }
 ```
+
 For testing this, just attach `param(...)` with parameter and its value defined in the controller endpoint
+
 ```java
 @Test
 void getTodosWithGivenTextHttpRequest_shouldPass() throws Exception {
     String param = "text";
     String paramValue = "givenParam";
-		
+
     mockMvc.perform(MockMvcRequestBuilders.get("/api/todos")
                 .param(param, paramValue))
             .andExpect(status().isOk())
@@ -201,80 +232,133 @@ void getTodosWithGivenTextHttpRequest_shouldPass() throws Exception {
 ```
 
 ### Endpoint with `PathVariable`
-[refer to `Read Endpoint`](#read-endpoint)
+
+[refer to `Read Endpoint`or`Update Endpoint`](#read-endpoint)
 
 ### Endpoint with `RequestBody`
-[refer to `Create Endpoint`](#create-endpoint)
+
+[refer to `Create Endpoint`or`Update Endpoint`](#create-endpoint)
 
 ### Mocking with `Controller` endpoints
-```java
 
-```
-
-### 
-```java
-
-```
-
-###
 ```java
 
 ```
 
 ###
+
+```java
+
+```
+
+###
+
+```java
+
+```
+
+###
+
 ```java
 
 ```
 
 ## Mocking secured API controller endpoint using `WithMockUser`
-```java
 
+Assuming you've integrated `Spring Security` framework to secure controller endpoints with role-based authorities,
+and you want to test those secured endpoints with specified user. E.g `USER_ROLE`-based user or `ADMIN_ROLE`-based user.
+
+```java
+@Test
+@WithMockUser(username = "username_value", roles = "user_role_value")
+void deleteTodoByIdHttpRequest_shouldPass() throws Exception {
+     Long id = 1L;
+
+     mockMvc.perform(MockMvcRequestBuilders.delete("/api/todos/{id}", id))
+             .andExpect(status().isOk())
+             .andExpect(jsonPath("$.status", is(Boolean.TRUE)))
+             .andExpect(jsonPath("$.message", is("todo has been deleted successfully")))
+             .andDo(print());
+}
 ```
+
+By defining test with annotation `@WithMockUser(username = "username_value", roles = "user_roles")`, the test will be run as user
+who has username as `username_value` and roles as `user_role`.
+
+**Further read**:
+
+-   https://docs.spring.io/spring-security/site/docs/4.2.x/reference/html/test-method.html
 
 ## Mocking @AuthenticationPrincipal with `CustomUserDetails` object
+
+In case you need to access current logged in user http context to get `username`, `email` or `address` to perform some business logic in particular controller endpoint. For example, through using `@AuthenticationPrincipal`
+
 ```java
-
+ @PutMapping("{id}")
+public ResponseEntity<Todo> updateTodo(@PathVariable Long id, @Valid @RequestBody Todo updateRequest,
+    @AuthenticationPrincipal YourCustomUserDetails currentUser) {
+    // business logic
+}
 ```
 
-## How to mock authentication in Spring
- ```java
+Note that, it's assumed that you have `YouCustomUserDetails` exposed as a bean already.
+Therefore it's convenient to test the above endpoint using `@WithUserDetails`
 
-```
-
-## How to mock secured API controller endpoint in Spring 
 ```java
+@Test
+@WithUserDetails("user")
+void updateTodoByIdHttpRequest_shouldPass() throws Exception {
+     Long id = 1L;
 
-```
-## Mocking `AuthenticationPrincipal` with custom `CustomUserDetails` object
-```java
+     Todo updateRequest = new Todo();
+     updateRequest.setName("do this");
+     updateRequest.setDescription("Lorem ipsum dolor sit amet, consectetur adipiscing elit");
 
+     mockMvc.perform(MockMvcRequestBuilders.put("/api/todos/{id}", id)
+                 .contentType(MediaType.APPLICATION_JSON)
+                 .content(objectMapper.writeValueAsString(updateRequest)))
+             .andExpect(status().isOk())
+             .andExpect(content().contentType(APPLICATION_JSON_UTF8))
+             .andExpect(jsonPath("$.name", is(updateRequest.getName())))
+             .andExpect(jsonPath("$.description", is(updateRequest.getDescription())))
+             .andDo(print());
+    }
 ```
+
+**Further read**:
+
+-   https://docs.spring.io/spring-security/site/docs/4.2.x/reference/html/test-method.html
+
 ## [Database integration testing](#Database-integration-testing)
-* When we are perform integration testing with database
-    * each test should run from known state
-* Before each test, perform initialization (`setup`)
-    * insert sample data 
-* After each test, perform `cleanup`
-    * delete the sample data
+
+-   When we are perform integration testing with database
+    -   each test should run from known state
+-   Before each test, perform initialization (`setup`)
+    -   insert sample data
+-   After each test, perform `cleanup`
+    -   delete the sample data
 
 ### [Setup](#Setup)
+
 ```java
 @Autowired
-private JdbcTemplate jdbc;  
+private JdbcTemplate jdbc;
 
 @BeforeEach
 void setupDbBeforeTransactions() throws Exception {
      jdbc.execute("INSERT INTO todos (id, name, description) VALUES (11, 'do that', 'lorem ipsum dolor sit amet')");
-}   
+}
 
 // tests...
 
 // cleanup...
 ```
+
 ### [Cleanup](#Cleanup)
+
 ```java
 @Autowired
-private JdbcTemplate jdbc;  
+private JdbcTemplate jdbc;
 
 // setup...
 
