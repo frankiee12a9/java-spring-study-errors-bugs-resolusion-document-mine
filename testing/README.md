@@ -152,7 +152,7 @@ void createTodoHttpRequest_shouldPass() throws Exception {
     }
 ```
 
-The code mostly speak for itself what it does. As the `POST` request, first we need a `requestBody` (name, description),
+The code mostly speaks for itself what it does. As the `POST` request, first we need a `RequestBody` (e.g. name, description),
 then we need `EntityManager` to make it persisted and managed in the DB.
 
 `MockMvc.perform()` accepts a `MockMvcRequest` and mocks the API call given the fields of the object. Here, we built a request via the `MockMvcRequestBuilders`, as the request is `POST` and it does accept the `RequestBody` with `contentType` as `APPLICATION_JSON`,
@@ -250,28 +250,7 @@ void getTodosWithGivenTextHttpRequest_shouldPass() throws Exception {
 [refer to `Create Endpoint`or`Update Endpoint`](#create-endpoint)
 
 ### Mocking with `Controller` endpoints
-
-```java
-
-```
-
-###
-
-```java
-
-```
-
-###
-
-```java
-
-```
-
-###
-
-```java
-
-```
+> TODO
 
 ## Mocking secured API controller endpoint using `WithMockUser`
 
@@ -301,10 +280,10 @@ who has username as `username_value` and roles as `user_role`.
 
 ## Mocking @AuthenticationPrincipal with `CustomUserDetails` object
 
-In case you need to access current logged in user http context to get `username`, `email` or `address` to perform some business logic in particular controller endpoint. For example, through using `@AuthenticationPrincipal`
+In case you need to access current logged in user http context to get user's information (e.g. `username`, `email` or `address`) to perform some business logic in particular controller endpoint. For example, through using `@AuthenticationPrincipal`
 
 ```java
- @PutMapping("{id}")
+@PutMapping("{id}")
 public ResponseEntity<Todo> updateTodo(@PathVariable Long id, @Valid @RequestBody Todo updateRequest,
     @AuthenticationPrincipal YourCustomUserDetails currentUser) {
     // business logic
@@ -410,6 +389,7 @@ In summary, Mocking helps to:
 | 5   | Exception Handling     | If an exception occurs somewhere on the way, the controller should translate it into a meaningful error message and HTTP status for the user.                                                     |
 
 ### [Verifying HTTP Request Matching](#Verifying-HTTP-Request-Matching)
+> TODO
 
 Performing particular HTTP request is straightforward task for the controller endpoint. And of course, we need to verify it for proper response result.
 
@@ -423,6 +403,7 @@ mockMvc.perform(MockMvcRequestBuilders.get("/api/todo/{id}", id))
 ```
 
 ### [Verifying Input Se/Deserialization](#Verifying-Input-Se/Deserialization)
+> TODO 
 
 Based on business logic, some HTTP requests may need particular input such `@RequestParam` or `@RequestBody` to be performed. E.g: `POST`, `UPDATE`, or `GET` requests. Whatever the input is, we need to verify content type of it before it's being sent. Normally, `JSON` or `XMl` for the request body, `String`, `Int`, or `Long` for request parameters, etc...
 
@@ -444,6 +425,7 @@ mockMvc.perform(MockMvcRequestBuilders.put("/api/todos/{id}", id)
 ```
 
 ### [Verifying Input Validation](#Verifying-Input-Validation)
+> TODO 
 
 Let's say, for each newly inserted `Todo` item data, `name` field of it must be present, and the length must be equal or less than 200. You can't validate the input by displaying some text to UI such `name field must be present and allowed maximum length is less than 200 characters` and expect users will act what you said. Instead, you must validate it like this:
 
@@ -466,6 +448,7 @@ In bonus summary, Exception handling helps to:
 -   _Improve user experience_: If a user enters invalid data, they may have to re-enter the data or receive an error message.
 
 ### [Verifying Business Logic](#Verifying-Business-Logic)
+> TODO
 
 Either, the request is `UPDATE`, `POST`, or `DELETE`, you need to verify it to get expected response result.
 
@@ -487,6 +470,7 @@ public ResponseEntity<Todo> updateTodo(@PathVariable Long id, @Valid @RequestBod
 ```
 
 ### [Verifying Output Serialization](#Verifying-Output-Serialization)
+> TODO
 
 Sometimes, after business logic has been performed, you want to check the output response from the test is matched with the one you expected.
 
@@ -506,6 +490,7 @@ MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.delete("/api/todos/
 ```
 
 ### [Verifying Exception Handling](#Verifying-Exception-Handling)
+> TODO
 
 No matter, how good your application is, you will not be able to predict what user does with the application's features, maybe the weird behaviors that you couldn't expect. So that's why exceptions should be handled thoroughly.
 
