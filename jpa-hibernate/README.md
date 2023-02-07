@@ -1,7 +1,9 @@
 # JPA and Hibernates relevant errors and resolutions
 
 1. [org.hibernate.TransientObjectException: Object references an unsaved transient instance save the transient instance before flushing](#org-hibernate-TransientObjectException:-object-references-an-unsaved-transient-instance-save-the-transient-instance-before-flushing)
-2. [this is jus a test anchor link](#this-is-jus-a-test-anchor-link)
+1. [Hibernate: a collection with cascade=”all-delete-orphan” was no longer referenced by the owning entity instance hibernate]
+   (#Hibernate-a-collection-with-cascade=”all-delete-orphan”-was-no longer-referenced-by-the-owning-entity-instance-hibernate)
+1. [this is jus a test anchor link](#this-is-jus-a-test-anchor-link)
 
 ## org.hibernate.TransientObjectException: Object references an unsaved transient instance save the transient instance before flushing
 
@@ -25,7 +27,7 @@ class Tag {
         inverseJoinColumns = @JoinColumn(name = "movie_id", referencedColumnName = "id"))
     private List<Movie> movies;
 
-   // other fields, getters, and setters are ommited...
+   // other fields, getters, and setters are omitted...
 }
 ```
 
@@ -42,7 +44,7 @@ class Movie {
         inverseJoinColumns = @JoinColumn(name = "tag_id", referencedColumnName = "id"))
      private List<Tag> tags;
 
-     // other fields, getters, and setters are ommited...
+     // other fields, getters, and setters are omitted...
 }
 ```
 
@@ -62,11 +64,11 @@ The business logic requires that whenever you create a `Movie` new `Tag` is inse
         }
 
         Movie movie = new Movie();
-        // setters are ommited...
+        // setters are omitted...
         movie.setTags(tags); // (1) tags here, which are the referenced entity
 
-        Movie savedMovie = movieRepository.save(movie); // (2) you try to persit parent object with referenced object
-        // setters are ommited...
+        Movie savedMovie = movieRepository.save(movie); // (2) you try to persist parent object with referenced object
+        // setters are omitted...
 
         return createMovieResponse;
     }
@@ -98,7 +100,7 @@ class Movie {
         inverseJoinColumns = @JoinColumn(name = "tag_id", referencedColumnName = "id"))
 	  private List<Tag> tags;
 
-   // other fields, getters, and setters are ommited...
+   // other fields, getters, and setters are omitted...
 }
 ```
 
@@ -119,24 +121,27 @@ NOTE:
         List<Tag> tags = new ArrayList<>(tagNames.size());
         for (String name : tagNames) {
             Tag tag = tagRepository.findByName(name).orElse(null);
-			      tag = tag == null ? tagRepository.save(new Tag(name)) : tag;  // persit if object is null
+            tag = tag == null ? tagRepository.save(new Tag(name)) : tag;  // persist entity instance if it's null
             tags.add(tag);
         }
 
         Movie movie = new Movie();
-        // setters are ommited...
+        // setters are omitted...
         movie.setTags(tags);
 
         Movie savedMovie = movieRepository.save(movie);
-        // setters are ommited...
+        // setters are omitted...
 
         return createMovieResponse;
     }
 ```
 
-In line `104` we need to persist object in database first, so need to make the change in
+We updated `tag = tag == null ? new Tag(name) : tag;` to `tag = tag == null ? tagRepository.save(new Tag(name)) : tag;`
+as it's needed to be persisted and managed object in database first before taking any operation on it.
 
-`tag = tag == null ? new Tag(name) : tag;` to `tag = tag == null ? tagRepository.save(new Tag(name)) : tag;`
+## Collection with cascade=”all-delete-orphan” was no longer referenced by the owning entity instance-hibernate
+
+>
 
 ## this is jus a test anchor link
 
