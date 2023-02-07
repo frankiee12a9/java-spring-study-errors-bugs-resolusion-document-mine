@@ -1,6 +1,6 @@
 # Spring/Spring Boot Unit Testing, API endpoint, View template Mocking
 
----
+### This is the Test-driven Development study notes and takeaway of mine after has been practicing by code as well as reading several articles and sources over the internet. JUST WANT TO NOTE IT BACK FOR FUTURE RE-LOOKING UP.
 
 ## Requirements
 
@@ -250,7 +250,8 @@ void getTodosWithGivenTextHttpRequest_shouldPass() throws Exception {
 [refer to `Create Endpoint`or`Update Endpoint`](#create-endpoint)
 
 ### Mocking with `Controller` endpoints
-> TODO
+
+> TODO:
 
 ## Mocking secured API controller endpoint using `WithMockUser`
 
@@ -367,15 +368,14 @@ Imagine the service implementation above has a dependency to a database or some 
 
 Aside from reducing failures, mocking also reduces our tests' complexity and thus saves us some effort. It takes a lot of boilerplate code to set up a whole network of correctly-initialized objects to be used in a test. Using mocks, we only have to “instantiate” one mock instead of a whole rat-tail of objects the real object might need to be instantiated.
 
-<!--
-So, in a test of our SendMoneyController above, instead of a real instance of SendMoneyUseCase, we want to use a mock with the same interface whose behavior we can control as needed in the test. -->
-
 In summary, Mocking helps to:
 
 -   Isolate the component under test
 -   Make tests faster and more reliable
 -   Test edge cases and unusual scenarios
 -   Make tests easier to write and maintain
+<!--
+So, in a test of our SendMoneyController above, instead of a real instance of SendMoneyUseCase, we want to use a mock with the same interface whose behavior we can control as needed in the test. -->
 
 ## [Responsibilities of a Web Controller](#Responsibilities-of-a-web-controller)
 
@@ -389,7 +389,6 @@ In summary, Mocking helps to:
 | 5   | Exception Handling     | If an exception occurs somewhere on the way, the controller should translate it into a meaningful error message and HTTP status for the user.                                                     |
 
 ### [Verifying HTTP Request Matching](#Verifying-HTTP-Request-Matching)
-> TODO
 
 Performing particular HTTP request is straightforward task for the controller endpoint. And of course, we need to verify it for proper response result.
 
@@ -403,7 +402,6 @@ mockMvc.perform(MockMvcRequestBuilders.get("/api/todo/{id}", id))
 ```
 
 ### [Verifying Input Se/Deserialization](#Verifying-Input-Se/Deserialization)
-> TODO 
 
 Based on business logic, some HTTP requests may need particular input such `@RequestParam` or `@RequestBody` to be performed. E.g: `POST`, `UPDATE`, or `GET` requests. Whatever the input is, we need to verify content type of it before it's being sent. Normally, `JSON` or `XMl` for the request body, `String`, `Int`, or `Long` for request parameters, etc...
 
@@ -425,7 +423,6 @@ mockMvc.perform(MockMvcRequestBuilders.put("/api/todos/{id}", id)
 ```
 
 ### [Verifying Input Validation](#Verifying-Input-Validation)
-> TODO 
 
 Let's say, for each newly inserted `Todo` item data, `name` field of it must be present, and the length must be equal or less than 200. You can't validate the input by displaying some text to UI such `name field must be present and allowed maximum length is less than 200 characters` and expect users will act what you said. Instead, you must validate it like this:
 
@@ -448,7 +445,6 @@ In bonus summary, Exception handling helps to:
 -   _Improve user experience_: If a user enters invalid data, they may have to re-enter the data or receive an error message.
 
 ### [Verifying Business Logic](#Verifying-Business-Logic)
-> TODO
 
 Either, the request is `UPDATE`, `POST`, or `DELETE`, you need to verify it to get expected response result.
 
@@ -470,7 +466,6 @@ public ResponseEntity<Todo> updateTodo(@PathVariable Long id, @Valid @RequestBod
 ```
 
 ### [Verifying Output Serialization](#Verifying-Output-Serialization)
-> TODO
 
 Sometimes, after business logic has been performed, you want to check the output response from the test is matched with the one you expected.
 
@@ -490,7 +485,6 @@ MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.delete("/api/todos/
 ```
 
 ### [Verifying Exception Handling](#Verifying-Exception-Handling)
-> TODO
 
 No matter, how good your application is, you will not be able to predict what user does with the application's features, maybe the weird behaviors that you couldn't expect. So that's why exceptions should be handled thoroughly.
 
