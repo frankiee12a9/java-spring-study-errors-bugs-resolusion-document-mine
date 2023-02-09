@@ -60,7 +60,7 @@ For standard development, you might need the following specifications:
 6. [Database integration testing](#Database-integration-testing)
     - [Setup](#Setup)
     - [Cleanup](#Cleanup)
-7. [Why Mocking?](#Why-Mocking?)
+7. [Why Mocking?](#Why-Mocking)
 8. [Responsibilities of a Web Controller](#Responsibilities-of-a-web-controller)
     - [Verifying HTTP Request Matching](#Verifying-HTTP-Request-Matching)
     - [Verifying Input Se/Deserialization](#Verifying-Input-Se/Deserialization)
@@ -360,7 +360,7 @@ private JdbcTemplate jdbc;
 }
 ```
 
-## [Why Mocking?](#Why-Mocking?)
+## [Why Mocking?](#why-Mocking)
 
 Why should we use a mock instead of a real service object in a test?
 
