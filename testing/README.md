@@ -382,10 +382,10 @@ So, in a test of our SendMoneyController above, instead of a real instance of Se
 | #   | Responsibility         | Description                                                                                                                                                                                       |
 | --- | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | 0   | Perform HTTP Requests  | The controller should respond to certain URLs, HTTP methods and content types.                                                                                                                    |
-| 2   | Deserialize Input      | The controller should parse the incoming HTTP request and create Java objects from variables in the URL, HTTP request parameters and the request body so that we can work with them in the code.3 |
-| 3   | Validate Input         | The controller is the first line of defense against bad input, so it’s a place where we can validate the input. 3                                                                                 |
-| 4   | Perform Business Logic | Having parsed the input, the controller must transform the input into the model expected by the business logic and pass it on to the business logic.                                              |
-| 5   | Serialize Output       | The controller takes the output of the business logic and serializes it into an HTTP response.                                                                                                    |
+| 1   | Deserialize Input      | The controller should parse the incoming HTTP request and create Java objects from variables in the URL, HTTP request parameters and the request body so that we can work with them in the code.3 |
+| 2   | Validate Input         | The controller is the first line of defense against bad input, so it’s a place where we can validate the input. 3                                                                                 |
+| 3   | Perform Business Logic | Having parsed the input, the controller must transform the input into the model expected by the business logic and pass it on to the business logic.                                              |
+| 4   | Serialize Output       | The controller takes the output of the business logic and serializes it into an HTTP response.                                                                                                    |
 | 5   | Exception Handling     | If an exception occurs somewhere on the way, the controller should translate it into a meaningful error message and HTTP status for the user.                                                     |
 
 ### [Verifying HTTP Request Matching](#Verifying-HTTP-Request-Matching)
