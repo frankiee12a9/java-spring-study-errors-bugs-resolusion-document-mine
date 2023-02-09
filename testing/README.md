@@ -355,8 +355,8 @@ private JdbcTemplate jdbc;
 // tests...
 
 @AfterEach
-    void cleanupDbAfterTransactions() throws Exception {
-        jdbc.execute("DELETE FROM todos");
+void cleanupDbAfterTransactions() throws Exception {
+     jdbc.execute("DELETE FROM todos");
 }
 ```
 
@@ -526,6 +526,9 @@ In bonus summary, `Exception handling` helps to:
 ## [Why Web Controllers should Integration-Test?](#Why-Web-Controllers-should-Integration-Test)
 
 Testing a Spring Web Controller with a unit test like this only covers a fraction of the potential errors that can happen in production. The unit test above verifies that a certain response code is returned, but it does not integrate with Spring to check if the input parameters are parsed correctly from an HTTP request, or if the controller listens to the correct path, or if exceptions are transformed into the expected HTTP response, and so on.
+
+----
+
 
 ### References
 
