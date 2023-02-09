@@ -537,5 +537,6 @@ Testing a Spring Web Controller with a unit test like this only covers a fractio
 -   https://stackabuse.com/how-to-test-a-spring-boot-application/
 -   https://reflectoring.io/spring-boot-mock/
 -   https://reflectoring.io/spring-boot-web-controller-test/
+-   https://docs.spring.io/spring-security/site/docs/4.2.x/reference/html/test-method.html
 -   https://babarowski.com/blog/mock-authentication-with-custom-userdetails/
 -   more...
