@@ -424,7 +424,7 @@ mockMvc.perform(MockMvcRequestBuilders.put("/api/todos/{id}", id)
 
 ### [Verifying Input Validation](#Verifying-Input-Validation)
 
-Let's say, for each newly inserted `Todo` item data, `name` field of it must be present, and the length must be equal or less than 200. You can't validate the input by displaying some text to UI such `name field must be present and allowed maximum length is less than 200 characters` and expect users will act what you said. Instead, you must validate it like this:
+Let's say, for each newly inserted `Todo` item data, its `name` field must be present, and the length must be equal or less than 200. You can't validate the input by displaying some text to UI such `name field must be present and allowed maximum length is less than 200 characters` and expect users will act what you said. Instead, you must validate it like this:
 
 ```java
 @Value
@@ -437,12 +437,6 @@ public class TodoRequest {
   // other fields
 }
 ```
-
-In bonus summary, Exception handling helps to:
-
--   _Protect against security threats_: By validating inputs, you can prevent attackers from injecting malicious data into your system.
--   _Improve data quality_: Input validation helps to ensure that the data entered into your system is accurate, consistent, and in the correct format.
--   _Improve user experience_: If a user enters invalid data, they may have to re-enter the data or receive an error message.
 
 ### [Verifying Business Logic](#Verifying-Business-Logic)
 
