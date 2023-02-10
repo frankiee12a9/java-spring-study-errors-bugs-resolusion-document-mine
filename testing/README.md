@@ -1,6 +1,6 @@
-# Spring/Spring Boot Unit Testing, API endpoint, View template Mocking
+# Spring/Spring Boot Unit Testing, API endpoint, View template Mocking concepts learning notes and takeaway
 
-### This is the Test-driven Development study notes and takeaway of mine after has been practicing by code as well as reading several articles and sources over the internet. JUST WANT TO NOTE IT BACK FOR FUTURE RE-LOOKING UP.
+This is the Test-driven Development study notes and takeaway of mine after has been practicing by code as well as reading several articles and sources over the internet. JUST WANT TO NOTE IT BACK FOR FUTURE RE-LOOKING UP.
 
 ## Requirements
 
