@@ -1,4 +1,6 @@
-# JPA and Hibernates relevant errors and resolutions
+# JPA and Hibernates learning notes and takeaway, belong with relevant errors and its resolutions
+
+## Contents
 
 1. [org.hibernate.TransientObjectException: Object references an unsaved transient instance save the transient instance before flushing](#org-hibernate-TransientObjectException:-object-references-an-unsaved-transient-instance-save-the-transient-instance-before-flushing)
 1. [Hibernate: a collection with cascade=”all-delete-orphan” was no longer referenced by the owning entity instance hibernate]
