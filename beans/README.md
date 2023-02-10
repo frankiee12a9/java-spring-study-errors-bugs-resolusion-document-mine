@@ -1,4 +1,6 @@
-# Bean and creating bean relevant errors and along with corresponding resolutions.
+# Spring bean, creating bean relevant notes, errors and along with corresponding resolutions.
+
+## Contents
 
 1. [BeanCreationException](#BeanCreationException)
 2. [NoSuchBeanDefinitionException](#NoSuchBeanDefinitionException)
