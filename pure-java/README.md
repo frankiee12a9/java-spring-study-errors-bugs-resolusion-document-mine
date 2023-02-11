@@ -5,11 +5,11 @@ This is the notes I used to document my Java learning journey for future re-look
 
 ## Content
 
-1. [Prefer _enums_ type rather than _constants integer_](#Prefer-enum-rather-constants-integer)
+- [Prefer _enums_ type rather than _constants integer_](#Prefer-enum-rather-constants-integer)
 
 ---
 
-1. [Prefer _enum_ type rather than _constants integer_](#Prefer-enum-rather-constants-integer)
+- [Prefer _enum_ type rather than _constants integer_](#Prefer-enum-rather-constants-integer)
 
 `Enums` should be prefer over `constants` values because they are:
 
