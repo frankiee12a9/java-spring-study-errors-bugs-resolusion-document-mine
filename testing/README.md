@@ -34,7 +34,6 @@ For standard development, you might need the following specifications:
 -   `spring-boot-starter-test` Starter for testing Spring Boot applications with libraries including JUnit Jupiter, Hamcrest and Mockito.
 -   `junit` JUnit is a unit testing framework to write and run repeatable automated tests on Java. (Optional)
 
----
 
 ## Contents
 
@@ -70,8 +69,6 @@ For standard development, you might need the following specifications:
     - [Verifying Exception Handling](#Verifying-Exception-Handling)
 9. [Unit or Integration Test?](#Unit-or-Integration-Test?)
 10. [Why Web Controllers should Integration-Test?](#Why-Web-Controllers-should-Integration-Test)
-
----
 
 ## Mocking with `RestController` API endpoints
 
