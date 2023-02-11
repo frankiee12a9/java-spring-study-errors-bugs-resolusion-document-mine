@@ -2,7 +2,6 @@
 
 This is the notes I used to document my Java learning journey for future re-looking up (just like learning other programming, frameworks, BUT just take it seriously for FUN), the content here are takeaway from several articles, books, and resources I've read over the internet NOT from myself, and of course its references are included in the last of each section below.
 
----
 
 ## Content
 
