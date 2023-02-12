@@ -2,14 +2,13 @@
 
 This is the notes I used to document my Java learning journey for future re-looking up (just like learning other programming, frameworks, BUT just take it seriously for FUN), the content here are takeaway from several articles, books, and resources I've read over the internet NOT from myself, and of course its references are included in the last of each section below.
 
-
 ## Content
 
-- [Prefer _enums_ type rather than _constants integer_](#Prefer-enum-rather-constants-integer)
+-   [Prefer _enum_ type rather than _constants int_ variable](#Prefer-enum-rather-constants-integer)
 
 ---
 
-- [Prefer _enum_ type rather than _constants integer_](#Prefer-enum-rather-constants-integer)
+-   [Prefer _enum_ type rather than _constants int_ variable](#Prefer-enum-rather-constants-integer)
 
 `Enums` should be prefer over `constants` values because they are:
 
@@ -19,6 +18,10 @@ This is the notes I used to document my Java learning journey for future re-look
 -   _Better error messages_: If you make a mistake when using constant int values, you will typically get an error message that includes a number, which can be difficult to understand. With enums, you will get a more meaningful error message that includes the name of the enum value that you used incorrectly.
 
 -   _Extensibility_: If you need to add or remove values from a set of constant int values, you will need to make changes in multiple places in your code. With enums, you can simply add or remove values from the enum, and your code will automatically reflect these changes.
+
+When to use `enum`?
+
+> Use enums any time you need a set of constants whose members are known at compile time.
 
 ### Code Snippet
 
@@ -60,5 +63,37 @@ Class Person {
 
   // etc...
 }
+```
 
+use `enum` type to represent and perform basic 4-functions calculator.
+
+```java
+public enum Operation {
+  PLUS, MINUS, MULTIPLY, DIVIDE;
+
+  // Do the arithmetic operation represented by this constant
+  public double apply(double x, double y) {
+    switch(this) {
+      case PLUS: return x + y;
+      case MINUS: return x - y;
+      case MULTIPLY: return x * y;
+      case DIVIDE: return x / y;
+    }
+    throw new AssertionError("Unknown op: " + this); // the code won't compile without this line
+  }
+}
+```
+
+OR
+
+```java
+// Enum type with constant-specific method implementations
+public enum Operation {
+  PLUS {public double calc(double x, double y){return x + y;}},
+  MINUS {public double calc(double x, double y){return x - y;}},
+  MULTIPLY {public double calc(double x, double y){return x * y;}},
+  DIVIDE {public double calc(double x, double y){return x / y;}};
+
+  public abstract double calc(double x, double y);
+}
 ```
